@@ -28,6 +28,8 @@ git submodule add https://github.com/getkirby/staticache.git site/plugins/static
 
 ### htaccess rules
 
+Add the following lines to your Kirby htaccess file, directly after the RewriteBase rule. 
+
 ```
 RewriteCond %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/index.html -f [NC]
 RewriteRule ^(.*) %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/index.html [L]
