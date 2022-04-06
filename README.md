@@ -20,7 +20,7 @@ This plugin is still an experiment. The first results are very promising but it 
 
 - [ ] Nginx config example
 - [ ] Caddy config example
-- [ ] Publish on Packagist to be installable via composer
+- [x] Publish on Packagist to be installable via composer
 - [x] Hooks to automatically flush the cache when content is updated via the Panel
 - [x] Add options to ignore pages from caching
 
@@ -29,6 +29,12 @@ This plugin is still an experiment. The first results are very promising but it 
 ### Download
 
 Download and copy this repository to `/site/plugins/staticache`.
+
+### Composer
+
+```
+composer require getkirby/staticache
+```
 
 ### Git submodule
 
