@@ -33,7 +33,7 @@ class StatiCache extends FileCache
 
     public function set(string $key, $value, int $minutes = 0): bool
     {
-        return F::write($this->file($key), $value['html'] . '<-- static -->');
+        return F::write($this->file($key), $value['html'] . '<!-- static -->');
     }
 
 }
