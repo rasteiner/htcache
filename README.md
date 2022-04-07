@@ -91,6 +91,24 @@ RewriteCond %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/index.html -f [NC]
 RewriteRule ^(.*) %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/index.html [L]
 ```
 
+### nginx
+
+Standard php nginx config will have this location block for all requests
+
+```
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+```
+change it to add `/static/$uri/index.html` before last `/index.php` fallback
+
+```
+    location / {
+        try_files $uri $uri/ /static/$uri/index.html /index.php?$query_string;
+    }
+```
+
+
 ## License
 
 MIT
