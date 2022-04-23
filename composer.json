@@ -1,21 +1,26 @@
 {
-  "name": "getkirby/staticache",
-  "description": "Static site performance on demand",
+  "name": "rasteiner/htcache",
+  "description": "Static site performance on demand with a twist",
   "type": "kirby-plugin",
   "license": "MIT",
-  "homepage": "https://getkirby.com/plugins/getkirby/staticache",
+  "homepage": "https://github.com/rasteiner/htcache",
   "version": "0.1.0",
   "authors": [
     {
       "name": "Bastian Allgeier",
       "email": "bastian@getkirby.com",
       "homepage": "https://getkirby.com/plugins/getkirby"
+    },
+    {
+      "name": "Roman Steiner",
+      "email": "roman@toastlab.ch",
+      "homepage": "https://getkirby.com/plugins/rasteiner"
     }
   ],
   "require": {
     "getkirby/composer-installer": "^1.2"
   },
   "extra": {
-    "installer-name": "staticache"
+    "installer-name": "htcache"
   }
 }

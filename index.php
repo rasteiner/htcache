@@ -1,11 +1,11 @@
 <?php
 
 load([
-    'Kirby\Cache\StatiCache' => __DIR__ . '/src/StatiCache.php'
+    'Kirby\Cache\HTCache' => __DIR__ . '/src/HTCache.php'
 ]);
 
-Kirby::plugin('getkirby/staticache', [
+Kirby::plugin('rasteiner/htcache', [
     'cacheTypes' => [
-        'static' => 'Kirby\Cache\StatiCache'
+        'htcache' => 'rasteiner\Cache\HTCache'
     ]
 ]);

@@ -1,52 +1,41 @@
-# Kirby Staticache Plugin
+> Changes to the original staticache from Bastian Allgeier
 
-Static site performance on demand!
+# Kirby HTCache Plugin
 
-This plugin will give you the performance of a static site generator for your regular Kirby installations. Without a huge setup or complex deploy steps, you can just run your Kirby site on any server – cheap shared hosting, VPS, you name it – and switch on the static cache to get incredible speed on demand. 
+A twist on https://github.com/getkirby/staticache that enables content representations. Built for apache, works only on apache (therefore can't be merged into staticache).
 
-With custom ignore rules, you can even mix static and dynamic content. Keep some pages static while others are still served live by Kirby. 
-
-The static cache will automatically be flushed whenever content gets updated in the Panel. It's truly the best of both worlds. 
-
-Rough benchmark comparison for our starterkit home page: 
-
-Without page cache: ~70 ms  
-With page cache: ~30 ms   
-With static cache: ~10 ms
+The basic idea is to save the content into a format agnostic "cache.dat" file instead of "index.html", then serve it with the correct headers by adding an appropriate ".htaccess" file. 
 
 ## 🚨 Experimental
 
-This plugin is still an experiment. The first results are very promising but it needs to be tested on more servers and has a couple open todos:
-
-- [ ] Nginx config example
-- [ ] Caddy config example
-- [x] Publish on Packagist to be installable via composer
-- [x] Hooks to automatically flush the cache when content is updated via the Panel
-- [x] Add options to ignore pages from caching
+This plugin is an experiment built on an experiment. 
 
 ## Installation
 
 ### Download
 
-Download and copy this repository to `/site/plugins/staticache`.
+Download and copy this repository to `/site/plugins/htcache`.
 
 ### Composer
 
+Currently not available. 
+<!--
 ```
-composer require getkirby/staticache
+composer require rasteiner/htcache
 ```
+-->
 
 ### Git submodule
 
 ```
-git submodule add https://github.com/getkirby/staticache.git site/plugins/staticache
+git submodule add https://github.com/rasteiner/htcache.git site/plugins/htcache
 ```
 
 ## Setup
 
 ### Cache configuration
 
-Staticache is just a cache driver that can be activated for the page cache:
+HTcache is just a cache driver that can be activated for the page cache:
 
 ```php
 // /site/config/config.php
@@ -55,7 +44,7 @@ return [
   'cache' => [
     'pages' => [
       'active' => true,
-      'type' => 'static'
+      'type' => 'htcache'
     ]
   ]
 ];
@@ -86,28 +75,12 @@ Kirby will automatically purge the cache when changes are made in the Panel.
 
 Add the following lines to your Kirby htaccess file, directly after the RewriteBase rule.
 
+```aconf
+# htcache
+RewriteCond %{ENV:CACHE} !disable [NC]
+RewriteCond %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/cache.dat -f [NC]
+RewriteRule ^(.*) %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/cache.dat [L]
 ```
-RewriteCond %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/index.html -f [NC]
-RewriteRule ^(.*) %{DOCUMENT_ROOT}/static/%{REQUEST_URI}/index.html [L]
-```
-
-### nginx
-
-Standard php nginx config will have this location block for all requests
-
-```
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-```
-change it to add `/static/$uri/index.html` before last `/index.php` fallback
-
-```
-    location / {
-        try_files $uri $uri/ /static/$uri/index.html /index.php?$query_string;
-    }
-```
-
 
 ## License
 
@@ -115,4 +88,5 @@ MIT
 
 ## Credits
 
-- [Bastian Allgeier](https://getkirby.com/plugins/getkirby)
+- [Bastian Allgeier](https://github.com/getkirby/staticache) - the initial idea and most of the code / documentation
+- Roman Steiner - The changes above
