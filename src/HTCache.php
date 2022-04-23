@@ -2,9 +2,10 @@
 
 namespace rasteiner\Cache;
 
+use Kirby\Cache\FileCache;
 use Kirby\Filesystem\F;
 
-class HTCache extends Kirby\Cache\FileCache
+class HTCache extends FileCache
 {
     public function __construct(array $options)
     {
